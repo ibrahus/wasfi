@@ -28,8 +28,8 @@ function App() {
   return (
     
 
-    // <Home />
-    <Service />
+    <Home />
+    // <Service />
   );
 }
 
