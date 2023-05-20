@@ -1,27 +1,28 @@
-import { InboxIcon, TrashIcon, UsersIcon } from '@heroicons/react/24/outline'
+import { InboxIcon, TrashIcon, UsersIcon, ArrowUpOnSquareStackIcon, PlusCircleIcon, Bars3Icon } from '@heroicons/react/24/outline'
+
 
 
 const features = [
     {
         name: 'Upload product image',
         description:
-            'Non quo aperiam repellendus quas est est. Eos aut dolore aut ut sit nesciunt. Ex tempora quia. Sit nobis consequatur dolores incidunt.',
+            'Seamlessly upload your image to our AI tool for effortless generation of creative and unique descriptions.',
         href: '#',
-        icon: InboxIcon,
+        icon: ArrowUpOnSquareStackIcon,
     },
     {
         name: 'Add product attributes',
         description:
-            'Vero eum voluptatem aliquid nostrum voluptatem. Vitae esse natus. Earum nihil deserunt eos quasi cupiditate. A inventore et molestiae natus.',
+            'Elevate the quality of the generated descriptions by adding specific product attributes that align with your requirements.',
         href: '#',
-        icon: UsersIcon,
+        icon: PlusCircleIcon,
     },
     {
         name: 'Craft fresh, unique copy instantly',
         description:
-            'Et quod quaerat dolorem quaerat architecto aliquam accusantium. Ex adipisci et doloremque autem quia quam. Quis eos molestiae at iure impedit.',
+            'Experience the power of our AI tool as it delivers instant, captivating, and one-of-a-kind product descriptions that are sure to grab attention.',
         href: '#',
-        icon: TrashIcon,
+        icon: Bars3Icon,
     },
 ]
 
@@ -39,7 +40,7 @@ const Generating = () => {
                         How it works
                     </h2>
                     <p className="mt-6 text-lg leading-8 text-gray-600">
-                        Transform product data into engaging, high-conversion stories and product descriptions. All in your tailored brand voice.
+                        Transform product image into engaging, high-conversion stories and product descriptions. All in your tailored brand voice.
 
                     </p>
                 </div>
@@ -55,11 +56,6 @@ const Generating = () => {
                                 </dt>
                                 <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
                                     <p className="flex-auto">{feature.description}</p>
-                                    <p className="mt-6">
-                                        <a href={feature.href} className="text-sm font-semibold leading-6 text-indigo-600">
-                                            Learn more <span aria-hidden="true">→</span>
-                                        </a>
-                                    </p>
                                 </dd>
                             </div>
                         ))}

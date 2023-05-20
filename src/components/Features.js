@@ -1,22 +1,22 @@
-import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
+import { ArrowTrendingUpIcon, ChartBarIcon, ArrowPathIcon } from '@heroicons/react/20/solid'
 
 
 const features = [
     {
         name: 'Refresh seasonal content.',
         description:
-            'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-        icon: CloudArrowUpIcon,
+            "Keep your content fresh to improve rankings and on- page conversion.Reduce writer's block for your team by giving them a first draft of a description to work off.",
+        icon: ArrowPathIcon,
     },
     {
         name: 'Increase SEO keywords.',
         description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
-        icon: LockClosedIcon,
+        icon: ArrowTrendingUpIcon,
     },
     {
         name: 'Improve conversion rates.',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-        icon: ServerIcon,
+        description: 'Product descriptions convert because they educate customers on key product features and benefits.A / B test your highest- conversion copy with all the variations provided by AI.',
+        icon: ChartBarIcon,
     },
 ]
 
@@ -30,10 +30,9 @@ const Features = () => {
                     <div className="px-6 lg:px-0 lg:pr-4 lg:pt-4">
                         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                             <h2 className="text-base font-semibold leading-7 text-indigo-600">Sell More</h2>
-                            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
+                            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Why you should use our AI tool</p>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
-                                iste dolor cupiditate blanditiis ratione.
+                                According to recent Google survey showed that 85% of online shoppers find product descriptions and pictures very important when choosing where to buy from.
                             </p>
                             <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                                 {features.map((feature) => (
