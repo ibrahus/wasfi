@@ -8,27 +8,24 @@ function classNames(...classes) {
 
 const tiers = [
     {
-        name: 'Freelancer',
+        name: 'Basic',
         id: 'tier-freelancer',
         href: '#',
-        price: { monthly: '$15', annually: '$144' },
-        description: 'The essentials to provide your best work for clients.',
-        features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
+        price: { monthly: '119 SAR', annually: '1000 SAR' },
+        description: 'This plan designed for the small e-commerce store.',
+        features: [' Up to 100 products description generating.', 'English language only.'],
         featured: false,
         cta: 'Buy plan',
     },
     {
-        name: 'Startup',
+        name: 'Growth',
         id: 'tier-startup',
         href: '#',
-        price: { monthly: '$30', annually: '$288' },
-        description: 'A plan that scales with your rapidly growing business.',
+        price: { monthly: '239 SAR', annually: '2400 SAR' },
+        description: 'This plan designed for medium e-commerce store.',
         features: [
-            '25 products',
-            'Up to 10,000 subscribers',
-            'Advanced analytics',
-            '24-hour support response time',
-            'Marketing automations',
+            'Up to 500 products description generating.',
+            'English and Arabic and 10 languages',
         ],
         featured: false,
         cta: 'Buy plan',
@@ -38,14 +35,10 @@ const tiers = [
         id: 'tier-enterprise',
         href: '#',
         price: 'Custom',
-        description: 'Dedicated support and infrastructure for your company.',
+        description: ' This plan designed for large e-commerce store',
         features: [
             'Unlimited products',
-            'Unlimited subscribers',
-            'Advanced analytics',
-            '1-hour, dedicated support response time',
-            'Marketing automations',
-            'Custom reporting tools',
+            'more than 35 languages',
         ],
         featured: true,
         cta: 'Contact sales',
@@ -62,17 +55,28 @@ const frequencies = [
     const [frequency, setFrequency] = useState(frequencies[0])
 
     return (
-        <div className="bg-white py-24 sm:py-32">
+        <div className=" py-24 sm:py-32">
+            <div
+                className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                aria-hidden="true"
+            >
+                <div
+                    className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                    style={{
+                        clipPath:
+                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                    }}
+                />
+            </div>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2>
                     <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                        Pricing plans for teams of all sizes
+                        Pricing plans for all products
                     </p>
                 </div>
                 <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-                    Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in.
-                    Explicabo id ut laborum.
+                    Speed up your product description creation with AI.
                 </p>
                 <div className="mt-16 flex justify-center">
                     <RadioGroup

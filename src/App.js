@@ -1,35 +1,21 @@
-import logo from './logo.svg';
-import { Button } from 'antd';
 import './App.css';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Home from "./pages/Home";
 import Service from "./pages/Service";
-
-
-const getImage = (img) => {
-  return "data:image/jpeg;base64,"
-
-}
-
-
-
-
-
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 function App() {
-  const [promot, setPromot] = useState('')
-
-  const [imageData, setImageData] = useState(null);
-
-
-
-
   return (
-    
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/product" element={<Service />} />
+        </Routes>
+      </BrowserRouter>
 
-    <Home />
-    // <Service />
+    </div>
   );
 }
 
