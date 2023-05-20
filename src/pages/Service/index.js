@@ -36,13 +36,126 @@ function classNames(...classes) {
 }
 
 
+
+
+
 export default function Example() {
+    const [response, setResponse] = useState('')
+    const [promot, setPromot] = useState('')
+    const [result, setResult] = useState(null);
+    const [imageData, setImageData] = useState(null);
+
+    const getKey = () => {
+        const keys = [
+            'X4PdcjPVLJMwtop4VYlBKjpFH8BcJflDlxVE27uT',
+            'jUBgifIRyajdfy6r8uo9BuLrrLxS6xMDy8o53IXc',
+            'AVNuXIrGO4PneKgojXC89i4xO6DfKzHDHVKcy1SH',
+        ]
+        return keys[Math.floor(Math.random() * keys.length)]
+    }
+
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const base64Data = reader.result.split(',')[1];
+            setImageData(base64Data);
+            predict((`data:image/jpeg;base64,${base64Data}`))
+        };
+    };
+
+    const handleSumbit = () => {
+        generateText(promot)
+            .then(data =>
+                setResponse(data?.generations?.[0]?.text)
+            )
+    }
+
+    const generateText = async (prompt) => {
+        const url = `https://api.cohere.ai/v1/generate`
+        const options = {
+            method: 'POST',
+
+            headers: {
+                Authorization: `Bearer ${getKey()}`,
+                'Content-Type': 'application/json',
+                "url": false
+            },
+            body: JSON.stringify({
+                model: 'command',
+                prompt: `Write a creative product description for ${prompt}, and describe benefits of this product.`,
+                max_tokens: 300,
+                temperature: 0.9,
+                k: 0,
+                stop_sequences: [],
+                return_likelihoods: 'NONE',
+            }),
+        }
+
+        const response = await fetch(url, options)
+        const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Something went wrong')
+        }
+        return data
+    }
+
+
+
+
+    const predict = async (imageData) => {
+        const response = await fetch('https://ibrahus-salesforce-blip-image-captioning-large.hf.space/run/predict/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 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'
+            },
+            body: JSON.stringify({
+                data: [imageData],
+            }),
+        });
+
+        const result = await response.json();
+        setResult(result.data);
+        generateText(result.data)
+        
+    };
+
 
     const [selectedTone, setSelectedTone] = useState(Tone[0])
     const [selectedLength, setSelectedLength] = useState(Length[0])
 
 
     return (
+        // <div className="App">
+        //     <div>
+        //         <input type="text" onChange={(e) => setPromot(e.target.value)} />
+        //     </div>
+        //     <div>
+        //         <button type="primary" disabled={promot === ""} onClick={() => handleSumbit()}>Submit</button>
+        //         <div>
+        //             {response}
+        //         </div>
+        //         <button onClick={() => predict(`data:image/jpeg;base64,${imageData}`)}>
+        //             Predict
+        //         </button>
+        //         {result && <div>{result}</div>}
+        //     </div>
+        //     <div>
+        //         title
+        //         <input type="text" onChange={(e) => setPromot(e.target.value)} />
+        //     </div>
+        //     <div>
+        //         keywords
+        //         <input type="text" onChange={(e) => setPromot(e.target.value)} />
+        //     </div>
+        //     <div>
+              
+        //     </div>
+        // </div>
         <div className="bg-white">
             <Nav />
             <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -66,18 +179,22 @@ export default function Example() {
                                 <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div className="col-span-full">
                                         <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                                            Cover photo
+                                            Product photo
                                         </label>
                                         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                             <div className="text-center">
-                                                <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+                                                {imageData ? <img src={`data:image/jpeg;base64,${imageData}`} alt="Selected Image" style={{ maxWidth: "200px", maxHeight: "200px" }} /> : <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />}
+
+                                                
+
                                                 <div className="mt-4 flex text-sm leading-6 text-gray-600">
                                                     <label
                                                         htmlFor="file-upload"
                                                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                                     >
+                                                        
                                                         <span>Upload a file</span>
-                                                        <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                        <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleImageChange} />
                                                     </label>
                                                     <p className="pl-1">or drag and drop</p>
                                                 </div>
@@ -96,7 +213,6 @@ export default function Example() {
                                                     name="website"
                                                     id="website"
                                                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                    placeholder="www.example.com"
                                                 />
                                             </div>
                                         </div>
@@ -112,7 +228,6 @@ export default function Example() {
                                                     name="website"
                                                     id="website"
                                                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                    placeholder="www.example.com"
                                                 />
                                             </div>
                                         </div>
@@ -129,7 +244,6 @@ export default function Example() {
                                                     name="website"
                                                     id="website"
                                                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                    placeholder="www.example.com"
                                                 />
                                             </div>
                                         </div>
@@ -146,7 +260,6 @@ export default function Example() {
                                                     name="website"
                                                     id="website"
                                                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                    placeholder="www.example.com"
                                                 />
                                             </div>
                                         </div>
@@ -288,7 +401,7 @@ export default function Example() {
                         <div className="px-4 sm:px-0">
                             <h2 className="text-base font-semibold leading-7 text-gray-900">Result</h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">
-                                This information will be displayed publicly so be careful what you share.
+                                 {response}
                             </p>
                         </div>
 
