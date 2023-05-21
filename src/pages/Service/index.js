@@ -52,7 +52,7 @@ export default function Example() {
         setBrand('')
         setSeo('')
         setFeatures('')
-        setSelectedTone(selectedTone[0])
+        setSelectedTone(Langs[0])
         setSelectedLength(Length[0])
         setImageData(null)
         setResponse('')
