@@ -5,11 +5,12 @@ import { Dialog } from '@headlessui/react'
 import MySvgImage from './IconN.png';
 
 const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#Features' },
-    { name: 'Generating', href: '#Generating' },
-    { name: 'Pricing', href: '#Pricing' },
-    { name: 'Team', href: '#' },
+    { name: 'Product', href: '/product' },
+    { name: 'Features', href: '/#Features' },
+    { name: 'Generating', href: '/#Generating' },
+    { name: 'Pricing', href: '/#Pricing' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Team', href: '/team' },
 ]
 
 const Nav = () => {
