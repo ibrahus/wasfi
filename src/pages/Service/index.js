@@ -24,7 +24,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-
+const env = process.env
+const OpenAiTpken = env.REACT_APP_OPEN_AI_TOKEN
+const HFTpken = env.REACT_APP_HF_AI_TOKEN
 
 
 
@@ -74,7 +76,7 @@ export default function Example() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'
+                'Authorization': `Bearer ${OpenAiTpken}`
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
@@ -106,7 +108,7 @@ export default function Example() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'
+                'Authorization': `Bearer ${OpenAiTpken}`
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
@@ -139,7 +141,7 @@ export default function Example() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'
+                'Authorization': `Bearer ${OpenAiTpken}`
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
@@ -173,7 +175,7 @@ export default function Example() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'
+                'Authorization': `Bearer ${OpenAiTpken}`
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
@@ -209,7 +211,7 @@ export default function Example() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'
+                'Authorization': `Bearer ${HFTpken}`
             },
             body: JSON.stringify({
                 data: [imageData],
