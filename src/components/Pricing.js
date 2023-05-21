@@ -25,7 +25,9 @@ const tiers = [
         description: 'This plan designed for medium e-commerce store.',
         features: [
             'Up to 500 products description generating.',
+            '  Upload multiple images at once',
             'English and Arabic and 10 languages',
+            'SEO optimization',
         ],
         featured: false,
         cta: 'Buy plan',
@@ -38,7 +40,10 @@ const tiers = [
         description: ' This plan designed for large e-commerce store',
         features: [
             'Unlimited products',
-            'more than 35 languages',
+            'Image optimization.',
+            'Upload multiple images at once.',
+            'SEO optimization.',
+            '35 languages',
         ],
         featured: true,
         cta: 'Contact sales',

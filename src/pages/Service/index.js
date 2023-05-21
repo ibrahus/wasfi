@@ -1,12 +1,10 @@
 
 import { Fragment } from 'react'
-import { Popover } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
 import Nav from "../../components/Nav"
 import Footer from "../../components/Footer"
 
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { PhotoIcon } from '@heroicons/react/24/solid'
 
 import {  useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
@@ -45,6 +43,25 @@ export default function Example() {
     const [result, setResult] = useState(null);
     const [imageData, setImageData] = useState(null);
 
+    const [title, setTitle] = useState('')
+    const [brand, setBrand] = useState('')
+    const [seo, setSeo] = useState('')
+    const [features, setFeatures] = useState('')
+    const [selectedTone, setSelectedTone] = useState(Tone[0])
+    const [selectedLength, setSelectedLength] = useState(Length[0])
+
+
+    const reset = () => {
+        setTitle('')
+        setBrand('')
+        setSeo('')
+        setFeatures('')
+        setSelectedTone(Tone[0])
+        setSelectedLength(Length[0])
+        setImageData(null)
+        setResponse('')
+    }
+
     const getKey = () => {
         const keys = [
             'X4PdcjPVLJMwtop4VYlBKjpFH8BcJflDlxVE27uT',
@@ -72,6 +89,143 @@ export default function Example() {
                 setResponse(data?.generations?.[0]?.text)
             )
     }
+
+
+    const handleGenerateTitle = async (caption) => {
+        const url = 'https://api.openai.com/v1/chat/completions';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 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'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: `Given the caption '${caption}', generate a compelling and concise product title.`
+                    }
+                ],
+                temperature: 0.2
+            })
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong');
+            }
+            setTitle(data.choices[0].message?.content);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleGenerateSEO = async (caption) => {
+        const url = 'https://api.openai.com/v1/chat/completions';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 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'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: `Based on the product caption '${caption}', generate a short list of SEO-friendly keywords that potential customers might use to find this product online`
+
+                    }
+                ],
+                temperature: 0.2
+            })
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong');
+            }
+            setSeo(data.choices[0].message?.content);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleGenerateFeatures = async (caption) => {
+        const url = 'https://api.openai.com/v1/chat/completions';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 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'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: `dentify up to 5 product keywords from the product caption: '${caption}`
+
+                    }
+                ],
+                temperature: 0.2
+            })
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong');
+            }
+            setFeatures(data.choices[0].message?.content);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    const handleGenerate = async () => {
+        const url = 'https://api.openai.com/v1/chat/completions';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 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'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: `Create a detailed ${title !== "" && `, comprehensive product description from the title '${title}'`}${`, caption '${response}'`}${features !== "" `, key features '${features}'`}${seo !== "" && `, SEO keywords '${seo}'`}${ brand !== "" && `, and considering the brand '${brand}'`}`
+                    }
+                ],
+                temperature: 0.2
+            })
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong');
+            }
+            setTitle(data.choices[0].message?.content);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+
+
+
 
     const generateText = async (prompt) => {
         const url = `https://api.cohere.ai/v1/generate`
@@ -126,11 +280,12 @@ export default function Example() {
         .then(data =>
             setResponse(data?.generations?.[0]?.text)
         )
+        handleGenerateTitle(result.data[0])
+        handleGenerateSEO(result.data[0])
+        handleGenerateFeatures(result.data[0])
         
     };
 
-    const [selectedTone, setSelectedTone] = useState(Tone[0])
-    const [selectedLength, setSelectedLength] = useState(Length[0])
 
 
     return (
@@ -187,6 +342,8 @@ export default function Example() {
                                         <div className="mt-2">
                                             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                                 <input
+                                                    value={title}
+                                                    onChange={(e) => setTitle(e.target.value)}
                                                     type="text"
                                                     name="website"
                                                     id="website"
@@ -218,6 +375,8 @@ export default function Example() {
                                         <div className="mt-2">
                                             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                                 <input
+                                                    value={seo}
+                                                    onChange={(e) => setSeo(e.target.value)}
                                                     type="text"
                                                     name="website"
                                                     id="website"
@@ -234,6 +393,8 @@ export default function Example() {
                                         <div className="mt-2">
                                             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                                 <input
+                                                    value={features}
+                                                    onChange={(e) => setFeatures(e.target.value)}
                                                     type="text"
                                                     name="website"
                                                     id="website"
@@ -365,11 +526,12 @@ export default function Example() {
                                 </div>
                             </div>
                             <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
-                                <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                                <button type="button" onClick={() => reset()} className="text-sm font-semibold leading-6 text-gray-900">
                                     Reset
                                 </button>
                                 <button
                                     type="submit"
+                                    onClick={() => handleGenerate()}
                                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Generate
