@@ -2,6 +2,8 @@ import { ArrowTrendingUpIcon, ChartBarIcon, ArrowPathIcon } from '@heroicons/rea
 
 import { Slider } from 'antd';
 
+import prod from "./prod.png"
+
 const features = [
     {
         name: 'Refresh seasonal content.',
@@ -65,9 +67,9 @@ const Features = () => {
                         </div>
                     </div>
                     <div className="sm:px-6 lg:px-0">
-                        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                        {/* <div className="mx-auto max-w-7xl px-6 lg:px-8">
                             <div className="mx-auto max-w-2xl sm:text-center">
-                                <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop wasting time & money on content and copy writing</h2>
+                                <h2 className="text-base font-semibold leading-7 text-indigo-600">Think Twice</h2>
                                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Stop wasting time & money on content and copy writing</p>
                                 <p className="mt-6 text-lg leading-8 text-gray-600">
                                     <dt className="inline font-semibold text-gray-900">
@@ -76,21 +78,21 @@ const Features = () => {
                                     <Slider tooltip={{ formatter: null }} />
                                     To save over 50 hours & $1,000 per month,
                                     <p className="mt-6 text-lg leading-8 text-gray-600">
-                                        Free forever. No credit card required.
+                                        Trusty forever.
 
 </p>
                                 </p>
                             </div>
-                        </div>
+                        </div> */}
 
-                        {/* <div className="relative isolate overflow-hidden bg-indigo-500 px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
+                        <div className="relative isolate overflow-hidden bg-indigo-500 px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
                             <div
                                 className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white"
                                 aria-hidden="true"
                             />
                             <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
                                 <img
-                                    src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
+                                    src={prod}
                                     alt="Product screenshot"
                                     width={2432}
                                     height={1442}
@@ -101,7 +103,7 @@ const Features = () => {
                                 className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-3xl"
                                 aria-hidden="true"
                             />
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
