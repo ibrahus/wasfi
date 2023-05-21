@@ -9,7 +9,10 @@ import { PhotoIcon } from '@heroicons/react/24/solid'
 import {  useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import ReactLoading from 'react-loading';
 
+import "./style.css"
+ 
 const Langs = [
     { id: 1, name: 'English' },
     { id: 2, name: 'Arabic' },
@@ -32,7 +35,7 @@ const HFTpken = env.REACT_APP_HF_AI_TOKEN
 
 export default function Example() {
     const [response, setResponse] = useState('')
-    const [promot, setPromot] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const [result, setResult] = useState(null);
     const [imageData, setImageData] = useState(null);
 
@@ -103,6 +106,7 @@ export default function Example() {
     }
 
     const handleGenerateSEO = async (caption) => {
+        
         const url = 'https://api.openai.com/v1/chat/completions';
         const options = {
             method: 'POST',
@@ -170,6 +174,8 @@ export default function Example() {
 
 
     const handleGenerate = async () => {
+        setIsLoading(true)
+
         const url = 'https://api.openai.com/v1/chat/completions';
         const options = {
             method: 'POST',
@@ -196,8 +202,12 @@ export default function Example() {
                 throw new Error(data.message || 'Something went wrong');
             }
             setResponse(data.choices[0].message?.content);
+            setIsLoading(false)
+
         } catch (error) {
             console.error(error);
+            setIsLoading(false)
+
         }
     }
 
@@ -207,6 +217,8 @@ export default function Example() {
 
 
     const predict = async (imageData) => {
+        setIsLoading(true)
+
         const response = await fetch('https://ibrahus-salesforce-blip-image-captioning-large.hf.space/run/predict/', {
             method: 'POST',
             headers: {
@@ -223,14 +235,17 @@ export default function Example() {
         handleGenerateTitle(result.data[0])
         handleGenerateSEO(result.data[0])
         handleGenerateFeatures(result.data[0])
-        
+        setIsLoading(false)
     };
 
 
 
     return (
+        <>
         <div className="bg-white">
             <Nav />
+         
+
             <div className="relative isolate px-6 pt-14 lg:px-8">
                 <div
                     className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -495,7 +510,15 @@ export default function Example() {
        
                 </div>
             <Footer />
-        </div>
+            </div>
+            {
+                isLoading && 
+                <div className="loading">
+                    <ReactLoading color={'green'} />
+                </div>
+            }
+         
+        </>
         
     )
 }
