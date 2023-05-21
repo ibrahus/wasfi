@@ -83,13 +83,6 @@ export default function Example() {
         };
     };
 
-    const handleSumbit = () => {
-        generateText(promot)
-            .then(data =>
-                setResponse(data?.generations?.[0]?.text)
-            )
-    }
-
 
     const handleGenerateTitle = async (caption) => {
         const url = 'https://api.openai.com/v1/chat/completions';
@@ -203,7 +196,7 @@ export default function Example() {
                 messages: [
                     {
                         role: 'user',
-                        content: `Create a detailed ${title !== "" && `, comprehensive product description from the title '${title}'`}${`, caption '${response}'`}${features !== "" `, key features '${features}'`}${seo !== "" && `, SEO keywords '${seo}'`}${ brand !== "" && `, and considering the brand '${brand}'`}`
+                        content: `Create a short, concise product description from the title 'Men's Brown Leather Strap Quartz Fossil Watch', caption 'fossil watches men's quartz watch with brown leather strap', key features '1. Fossil watches\n2. Men's quartz watch\n3. Brown leather strap\n4. Men's watch\n5. Quartz watch', SEO keywords '1. Fossil watches\n2. Men's watches\n3. Quartz watches\n4. Brown leather strap\n5. Fashion watches\n6. Designer watches\n7. Casual watches\n8. Timepieces\n9. Wristwatches\n10. Men's accessories'`
                     }
                 ],
                 temperature: 0.2
@@ -216,48 +209,13 @@ export default function Example() {
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong');
             }
-            setTitle(data.choices[0].message?.content);
+            setResponse(data.choices[0].message?.content);
         } catch (error) {
             console.error(error);
         }
     }
 
 
-
-
-
-
-    const generateText = async (prompt) => {
-        const url = `https://api.cohere.ai/v1/generate`
-        const options = {
-            method: 'POST',
-
-            headers: {
-                Authorization: `Bearer ${getKey()}`,
-                'Content-Type': 'application/json',
-                "url": false
-            },
-            body: JSON.stringify({
-                model: 'command',
-                prompt: `Write a creative product description for ${prompt}, and describe benefits of this product.`,
-                max_tokens: 300,
-                temperature: 0.9,
-                k: 0,
-                stop_sequences: [],
-                return_likelihoods: 'NONE',
-            }),
-        }
-
-        const response = await fetch(url, options)
-        const data = await response.json()
-
-        if (!response.ok) {
-            throw new Error(data.message || 'Something went wrong')
-        }
-
-        console.log(data, ' is the dara')
-        return data
-    }
 
 
 
@@ -276,10 +234,6 @@ export default function Example() {
 
         const result = await response.json();
         setResult(result.data[0]);
-        generateText(result.data[0])
-        .then(data =>
-            setResponse(data?.generations?.[0]?.text)
-        )
         handleGenerateTitle(result.data[0])
         handleGenerateSEO(result.data[0])
         handleGenerateFeatures(result.data[0])
@@ -307,7 +261,7 @@ export default function Example() {
                 <div className="space-y-10 divide-y divide-gray-900/10 " style={{margin: "10% 10%"}}>
                     <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
                        
-                        <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                        <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
                             <div className="px-4 py-6 sm:p-8">
                                 <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div className="col-span-full">
@@ -529,15 +483,15 @@ export default function Example() {
                                 <button type="button" onClick={() => reset()} className="text-sm font-semibold leading-6 text-gray-900">
                                     Reset
                                 </button>
+
                                 <button
-                                    type="submit"
                                     onClick={() => handleGenerate()}
                                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Generate
                                 </button>
                             </div>
-                        </form>
+                        </div>
                         <div className=" px-4 py-6 sm:p-8  bg-white shadow-sm ring-1 ring-gray-900/5 " style={{borderRadius: '10px'}}>
                             <h2 className="text-bold font-bold leading-7 text-gray-900">Result:</h2>
                             <p className="mt-1 text-md font-semibold leading-6 text-black-600">
