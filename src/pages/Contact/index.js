@@ -31,7 +31,7 @@ export default function Contact() {
                     <div className="mx-auto max-w-2xl text-center">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact sales</h2>
                         <p className="mt-2 text-lg leading-8 text-gray-600">
-                            Aute magna irure deserunt veniam aliqua magna enim voluptate.
+                            Dont hestate to contact our sales.
                         </p>
                     </div>
                     <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
