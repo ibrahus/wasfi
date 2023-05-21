@@ -10,22 +10,13 @@ import {  useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const Tone = [
-    { id: 0, name: 'Select Tone'},
-    { id: 1, name: 'Formal' },
-    { id: 2, name: 'Informal' },
-    { id: 3, name: 'Optimistic' },
-    { id: 4, name: 'Worried' },
-    { id: 5, name: 'Friendly' },
-    { id: 6, name: 'Curious' },
-    { id: 7, name: 'Creative' },
-    { id: 8, name: 'Encouraging' },
+const Langs = [
+    { id: 1, name: 'English' },
+    { id: 2, name: 'Arabic' },
 ]
 
 const Length = [
-    { id: 0, name: 'Select Length'},
     { id: 1, name: 'Short' },
-    { id: 2, name: 'Medium' },
     { id: 3, name: 'Long' },
 ]
 
@@ -47,7 +38,7 @@ export default function Example() {
     const [brand, setBrand] = useState('')
     const [seo, setSeo] = useState('')
     const [features, setFeatures] = useState('')
-    const [selectedTone, setSelectedTone] = useState(Tone[0])
+    const [selectedTone, setSelectedTone] = useState(Langs[0])
     const [selectedLength, setSelectedLength] = useState(Length[0])
 
 
@@ -56,20 +47,13 @@ export default function Example() {
         setBrand('')
         setSeo('')
         setFeatures('')
-        setSelectedTone(Tone[0])
+        setSelectedTone(selectedTone[0])
         setSelectedLength(Length[0])
         setImageData(null)
         setResponse('')
     }
 
-    const getKey = () => {
-        const keys = [
-            'X4PdcjPVLJMwtop4VYlBKjpFH8BcJflDlxVE27uT',
-            'jUBgifIRyajdfy6r8uo9BuLrrLxS6xMDy8o53IXc',
-            'AVNuXIrGO4PneKgojXC89i4xO6DfKzHDHVKcy1SH',
-        ]
-        return keys[Math.floor(Math.random() * keys.length)]
-    }
+
 
 
     const handleImageChange = (event) => {
@@ -196,7 +180,7 @@ export default function Example() {
                 messages: [
                     {
                         role: 'user',
-                        content: `Create a short, concise product description from the title 'Men's Brown Leather Strap Quartz Fossil Watch', caption 'fossil watches men's quartz watch with brown leather strap', key features '1. Fossil watches\n2. Men's quartz watch\n3. Brown leather strap\n4. Men's watch\n5. Quartz watch', SEO keywords '1. Fossil watches\n2. Men's watches\n3. Quartz watches\n4. Brown leather strap\n5. Fashion watches\n6. Designer watches\n7. Casual watches\n8. Timepieces\n9. Wristwatches\n10. Men's accessories'`
+                        content: `Create a ${selectedLength.name === "Short" ? "short " : 'detailed'} ${title !== "" && `, ${selectedLength.name === "Short" ? "concise " : 'comprehensive'} product description from the title '${title}'`}${`, caption '${result}'`}${features !== "" && `, key features '${features}'`}${seo !== "" && `, SEO keywords '${seo}'`}${brand !== "" && `, and considering the brand '${brand}'`}, in ${selectedTone.name} language.`
                     }
                 ],
                 temperature: 0.2
@@ -362,7 +346,7 @@ export default function Example() {
                                         <Listbox value={selectedTone} onChange={setSelectedTone}>
                                             {({ open }) => (
                                                 <>
-                                                    <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">Tone</Listbox.Label>
+                                                    <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">Languge</Listbox.Label>
                                                     <div className="relative mt-2">
                                                         <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                             <span className="block truncate">{selectedTone.name}</span>
@@ -379,21 +363,21 @@ export default function Example() {
                                                             leaveTo="opacity-0"
                                                         >
                                                             <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                                {Tone.map((person) => (
+                                                                {Langs.map((Lang) => (
                                                                     <Listbox.Option
-                                                                        key={person.id}
+                                                                        key={Lang.id}
                                                                         className={({ active }) =>
                                                                             classNames(
                                                                                 active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                                                 'relative cursor-default select-none py-2 pl-3 pr-9'
                                                                             )
                                                                         }
-                                                                        value={person}
+                                                                        value={Lang}
                                                                     >
                                                                         {({ selected, active }) => (
                                                                             <>
                                                                                 <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                                                                    {person.name}
+                                                                                    {Lang.name}
                                                                                 </span>
 
                                                                                 {selected ? (
