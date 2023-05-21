@@ -297,6 +297,8 @@ export default function Example() {
                                         <div className="mt-2">
                                             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                                 <input
+                                                    value={brand}
+                                                    onChange={(e) => setBrand(e.target.value)}
                                                     type="text"
                                                     name="website"
                                                     id="website"
