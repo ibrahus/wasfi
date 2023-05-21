@@ -100,6 +100,8 @@ export default function Example() {
         if (!response.ok) {
             throw new Error(data.message || 'Something went wrong')
         }
+
+        console.log(data, ' is the dara')
         return data
     }
 
@@ -119,43 +121,19 @@ export default function Example() {
         });
 
         const result = await response.json();
-        setResult(result.data);
-        generateText(result.data)
+        setResult(result.data[0]);
+        generateText(result.data[0])
+        .then(data =>
+            setResponse(data?.generations?.[0]?.text)
+        )
         
     };
-
 
     const [selectedTone, setSelectedTone] = useState(Tone[0])
     const [selectedLength, setSelectedLength] = useState(Length[0])
 
 
     return (
-        // <div className="App">
-        //     <div>
-        //         <input type="text" onChange={(e) => setPromot(e.target.value)} />
-        //     </div>
-        //     <div>
-        //         <button type="primary" disabled={promot === ""} onClick={() => handleSumbit()}>Submit</button>
-        //         <div>
-        //             {response}
-        //         </div>
-        //         <button onClick={() => predict(`data:image/jpeg;base64,${imageData}`)}>
-        //             Predict
-        //         </button>
-        //         {result && <div>{result}</div>}
-        //     </div>
-        //     <div>
-        //         title
-        //         <input type="text" onChange={(e) => setPromot(e.target.value)} />
-        //     </div>
-        //     <div>
-        //         keywords
-        //         <input type="text" onChange={(e) => setPromot(e.target.value)} />
-        //     </div>
-        //     <div>
-              
-        //     </div>
-        // </div>
         <div className="bg-white">
             <Nav />
             <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -171,7 +149,7 @@ export default function Example() {
                         }}
                     />
                 </div>
-                <div className="space-y-10 divide-y divide-gray-900/10 " style={{margin: "100px 300px"}}>
+                <div className="space-y-10 divide-y divide-gray-900/10 " style={{margin: "10% 10%"}}>
                     <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
                        
                         <form className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
@@ -398,10 +376,12 @@ export default function Example() {
                                 </button>
                             </div>
                         </form>
-                        <div className="px-4 sm:px-0">
-                            <h2 className="text-base font-semibold leading-7 text-gray-900">Result</h2>
-                            <p className="mt-1 text-sm leading-6 text-gray-600">
-                                 {response}
+                        <div className=" px-4 py-6 sm:p-8  bg-white shadow-sm ring-1 ring-gray-900/5 " style={{borderRadius: '10px'}}>
+                            <h2 className="text-bold font-bold leading-7 text-gray-900">Result:</h2>
+                            <p className="mt-1 text-md font-semibold leading-6 text-black-600">
+                                {response}
+                                
+                                {/* {result} */}
                             </p>
                         </div>
 
