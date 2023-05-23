@@ -13,7 +13,7 @@ const features = [
     },
     {
         name: 'Increase SEO keywords.',
-        description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+        description: 'Tackle long-tail keywords and increase your keyword coverage by creating content with AI. Lower your SEO spend and let your team focus on high-value strategy.',
         icon: ArrowTrendingUpIcon,
     },
     {
