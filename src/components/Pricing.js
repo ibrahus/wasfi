@@ -35,7 +35,7 @@ const tiers = [
     {
         name: 'Enterprise',
         id: 'tier-enterprise',
-        href: '#',
+        href: '/contact',
         price: 'Custom',
         description: ' This plan designed for large e-commerce store',
         features: [
